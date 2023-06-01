@@ -19,16 +19,21 @@ namespace Appli_Express_Voiture.Controllers
             _context = context;
         }
 
-        // GET: Voitures
+        //// GET: Voitures
+        
+
         public async Task<IActionResult> Index()
         {
-              return _context.Voitures != null ? 
-                          View(await _context.Voitures.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Voiture'  is null.");
-        }
+            // return _context.Voitures != null ?
+            var infoReparationVoiture =
+                    View(await _context.Voitures
+                    .Include(v => v.Reparations)
+                    .ToListAsync());
 
-        // GET: Voitures/Details/5
-        public async Task<IActionResult> Details(int? id)
+            return (infoReparationVoiture);
+        }    
+            // GET: Voitures/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Voitures == null)
             {

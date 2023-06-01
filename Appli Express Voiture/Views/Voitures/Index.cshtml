@@ -18,6 +18,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Modele)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrixAchat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reparations)
+            </th>
+            <th>
+                Cout Reparations
+            </th>
+            <th>
+                Total Reparations
+            </th>
+            <th>
+                Prix de Vente
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -30,6 +45,38 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Modele)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrixAchat)
+                </td>
+                
+                <td>
+                    @foreach (var rep in item.Reparations)
+                    {
+                        <p> @rep.TypeIntervention </p>
+                    }
+                </td>
+                <td>
+                    @foreach (var coutRep in item.Reparations)
+                    {
+                        <p> @coutRep.CoutIntervention </p>
+                    }
+                </td>
+                <td>
+                    @{
+                        float totalCoutReparation = 0;
+                        foreach (var rep in item.Reparations)
+                        {
+                            totalCoutReparation += rep.CoutIntervention;
+                        }
+                    }
+                    <p> @totalCoutReparation </p>
+                </td>
+
+                <td>
+                    @*Html.DisplayFor(modelItem => item.PrixVente)
+                *@
+                    @(item.Reparations.Sum(s => s.CoutIntervention) + item.PrixAchat + 500)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

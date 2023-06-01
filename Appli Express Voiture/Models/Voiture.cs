@@ -9,6 +9,8 @@ namespace Appli_Express_Voiture.Models
         public string Marque{ get; set; }
         public string Modele { get; set; }
 
+        public float PrixAchat { get; set; }
+
         public ICollection<Reparation>? Reparations { get; set; }
     }
 }
