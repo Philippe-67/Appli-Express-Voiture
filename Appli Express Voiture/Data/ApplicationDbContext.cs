@@ -10,7 +10,7 @@ namespace Appli_Express_Voiture.Data
             : base(options)
         {
         }
-        public DbSet<Appli_Express_Voiture.Models.Voiture> Voiture { get; set; } = default!;
-        public DbSet<Appli_Express_Voiture.Models.Reparation> Reparation { get; set; } = default!;
+        public DbSet<Appli_Express_Voiture.Models.Voiture> Voitures { get; set; } = default!;
+        public DbSet<Appli_Express_Voiture.Models.Reparation> Reparations { get; set; } = default!;
     }
 }

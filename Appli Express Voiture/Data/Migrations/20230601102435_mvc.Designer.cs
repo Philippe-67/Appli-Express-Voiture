@@ -4,6 +4,7 @@ using Appli_Express_Voiture.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Appli_Express_Voiture.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230601102435_mvc")]
+    partial class mvc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,9 @@ namespace Appli_Express_Voiture.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("CoutIntervention")
-                        .HasColumnType("real");
+                    b.Property<string>("CoutIntervention")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeIntervention")
                         .IsRequired()
@@ -44,7 +48,7 @@ namespace Appli_Express_Voiture.Data.Migrations
 
                     b.HasIndex("VoitureId");
 
-                    b.ToTable("Reparations");
+                    b.ToTable("Reparation");
                 });
 
             modelBuilder.Entity("Appli_Express_Voiture.Models.Voiture", b =>
@@ -65,7 +69,7 @@ namespace Appli_Express_Voiture.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Voitures");
+                    b.ToTable("Voiture");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -273,7 +277,7 @@ namespace Appli_Express_Voiture.Data.Migrations
             modelBuilder.Entity("Appli_Express_Voiture.Models.Reparation", b =>
                 {
                     b.HasOne("Appli_Express_Voiture.Models.Voiture", "Voiture")
-                        .WithMany("Reparations")
+                        .WithMany("Reparation")
                         .HasForeignKey("VoitureId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -334,7 +338,7 @@ namespace Appli_Express_Voiture.Data.Migrations
 
             modelBuilder.Entity("Appli_Express_Voiture.Models.Voiture", b =>
                 {
-                    b.Navigation("Reparations");
+                    b.Navigation("Reparation");
                 });
 #pragma warning restore 612, 618
         }

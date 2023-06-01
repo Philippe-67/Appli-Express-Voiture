@@ -22,19 +22,19 @@ namespace Appli_Express_Voiture.Controllers
         // GET: Reparations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Reparation.Include(r => r.Voiture);
+            var applicationDbContext = _context.Reparations.Include(r => r.Voiture);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Reparations/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Reparation == null)
+            if (id == null || _context.Reparations == null)
             {
                 return NotFound();
             }
 
-            var reparation = await _context.Reparation
+            var reparation = await _context.Reparations
                 .Include(r => r.Voiture)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reparation == null)
@@ -48,7 +48,7 @@ namespace Appli_Express_Voiture.Controllers
         // GET: Reparations/Create
         public IActionResult Create()
         {
-            ViewData["VoitureId"] = new SelectList(_context.Voiture, "Id", "Id");
+            ViewData["VoitureId"] = new SelectList(_context.Voitures, "Id", "Id");
             return View();
         }
 
@@ -65,24 +65,24 @@ namespace Appli_Express_Voiture.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VoitureId"] = new SelectList(_context.Voiture, "Id", "Id", reparation.VoitureId);
+            ViewData["VoitureId"] = new SelectList(_context.Voitures, "Id", "Id", reparation.VoitureId);
             return View(reparation);
         }
 
         // GET: Reparations/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Reparation == null)
+            if (id == null || _context.Reparations == null)
             {
                 return NotFound();
             }
 
-            var reparation = await _context.Reparation.FindAsync(id);
+            var reparation = await _context.Reparations.FindAsync(id);
             if (reparation == null)
             {
                 return NotFound();
             }
-            ViewData["VoitureId"] = new SelectList(_context.Voiture, "Id", "Id", reparation.VoitureId);
+            ViewData["VoitureId"] = new SelectList(_context.Voitures, "Id", "Id", reparation.VoitureId);
             return View(reparation);
         }
 
@@ -118,19 +118,19 @@ namespace Appli_Express_Voiture.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VoitureId"] = new SelectList(_context.Voiture, "Id", "Id", reparation.VoitureId);
+            ViewData["VoitureId"] = new SelectList(_context.Voitures, "Id", "Id", reparation.VoitureId);
             return View(reparation);
         }
 
         // GET: Reparations/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Reparation == null)
+            if (id == null || _context.Reparations == null)
             {
                 return NotFound();
             }
 
-            var reparation = await _context.Reparation
+            var reparation = await _context.Reparations
                 .Include(r => r.Voiture)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (reparation == null)
@@ -146,14 +146,14 @@ namespace Appli_Express_Voiture.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Reparation == null)
+            if (_context.Reparations == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Reparation'  is null.");
             }
-            var reparation = await _context.Reparation.FindAsync(id);
+            var reparation = await _context.Reparations.FindAsync(id);
             if (reparation != null)
             {
-                _context.Reparation.Remove(reparation);
+                _context.Reparations.Remove(reparation);
             }
             
             await _context.SaveChangesAsync();
@@ -162,7 +162,7 @@ namespace Appli_Express_Voiture.Controllers
 
         private bool ReparationExists(int id)
         {
-          return (_context.Reparation?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Reparations?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
